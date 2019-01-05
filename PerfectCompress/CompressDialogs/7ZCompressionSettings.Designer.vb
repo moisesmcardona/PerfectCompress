@@ -188,7 +188,7 @@ Partial Class _7ZCompressionSettings
         'CompressionMethod
         '
         Me.CompressionMethod.FormattingEnabled = True
-        Me.CompressionMethod.Items.AddRange(New Object() {"LZMA", "LZMA2", "PPmd", "BZip2"})
+        Me.CompressionMethod.Items.AddRange(New Object() {"LZMA", "LZMA2", "PPMd", "BZip2"})
         Me.CompressionMethod.Location = New System.Drawing.Point(12, 71)
         Me.CompressionMethod.Name = "CompressionMethod"
         Me.CompressionMethod.Size = New System.Drawing.Size(121, 21)
