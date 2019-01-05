@@ -12,11 +12,11 @@
             CommandLine = "a -t7z -m0=Copy -mx0 -ms=off """ & Output & """ """ & Input & """"
         Else
             If Method = "LZMA" Or Method = "LZMA2" Then
-                CommandLine = "a -t7z -m0=LZMA -mmt=on -" & Level & " -md=" & DictionarySize & " -mfb=" & WordSize & " -ms=" & BlockSize & " " & SFX & " """ & Output & """ """ & Input & """"
+                CommandLine = "a -t7z -m0=LZMA -mmt=" & Environment.ProcessorCount.ToString() & " -" & Level & " -md=" & DictionarySize & " -mfb=" & WordSize & " -ms=" & BlockSize & " " & SFX & " """ & Output & """ """ & Input & """ -bb3 -bso1 -bsp1 -bse1"
             ElseIf Method = "PPMd" Then
-                CommandLine = "a -t7z -m0=PPMd -" & Level & " -mmem=" & DictionarySize & " -mo=" & WordSize & " -ms=" & BlockSize & " """ & Output & """ """ & Input & """"
+                CommandLine = "a -t7z -m0=PPMd -" & Level & " -mmem=" & DictionarySize & " -mo=" & WordSize & " -ms=" & BlockSize & " """ & Output & """ """ & Input & """ -bb3 -bso1 -bsp1 -bse1"
             ElseIf Method = "BZip2" Then
-                CommandLine = "a -t7z -m0=BZip2 -mmt=on -" & Level & " -md=" & DictionarySize & " -mpass=" & WordSize & " -ms=" & BlockSize & " """ & Output & """ """ & Input & """"
+                CommandLine = "a -t7z -m0=BZip2 -mmt=" & Environment.ProcessorCount.ToString() & " -" & Level & " -md=" & DictionarySize & " -mpass=" & WordSize & " -ms=" & BlockSize & " """ & Output & """ """ & Input & """ -bb3 -bso1 -bsp1 -bse1"
             End If
         End If
         Return CommandLine
