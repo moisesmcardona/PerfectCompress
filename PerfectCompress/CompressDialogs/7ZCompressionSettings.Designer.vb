@@ -170,7 +170,7 @@ Partial Class _7ZCompressionSettings
         'CompressionLevel
         '
         Me.CompressionLevel.FormattingEnabled = True
-        Me.CompressionLevel.Items.AddRange(New Object() {"Store", "Fast", "Fastes", "Normal", "Maximum", "Ultra"})
+        Me.CompressionLevel.Items.AddRange(New Object() {"Store", "Fastest", "Fast", "Normal", "Maximum", "Ultra"})
         Me.CompressionLevel.Location = New System.Drawing.Point(12, 26)
         Me.CompressionLevel.Name = "CompressionLevel"
         Me.CompressionLevel.Size = New System.Drawing.Size(121, 21)

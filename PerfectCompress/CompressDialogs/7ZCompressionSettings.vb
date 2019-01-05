@@ -23,20 +23,8 @@
         Dim Level As String = String.Empty
         If CompressionLevel.SelectedIndex = 0 Then
             Level = "mx0"
-            DictionarySize.Text = ""
-            WordSize.Text = ""
-            SolidBlockSize.Text = ""
         ElseIf CompressionLevel.SelectedIndex = 1 Then
             Level = "mx1"
-            If CompressionMethod.SelectedItem = "LZMA" Or CompressionMethod.SelectedItem = "LZMA2" Then
-                DictionarySize.Text = "64k"
-                WordSize.Text = "32"
-                SolidBlockSize.Text = "8m"
-            ElseIf CompressionMethod.SelectedItem = "BZip2" Then
-                DictionarySize.Text = "4m"
-                WordSize.Text = "4"
-                SolidBlockSize.Text = "512m"
-            End If
         ElseIf CompressionLevel.SelectedIndex = 2 Then
             Level = "mx3"
         ElseIf CompressionLevel.SelectedIndex = 3 Then
@@ -46,121 +34,13 @@
         ElseIf CompressionLevel.SelectedIndex = 5 Then
             Level = "mx9"
         End If
+        AdjustParameters()
+        My.Settings.SevenZipLevel = Level
+        My.Settings.Save()
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CloseBtn.Click
+    Private Sub CloseBtn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CloseBtn.Click
         Me.Close()
-    End Sub
-
-    Private Sub RadioButton1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VRadioButton1.CheckedChanged
-
-    End Sub
-
-    Private Sub RadioButton2_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VRadioButton2.CheckedChanged
-
-        If My.Computer.FileSystem.ReadAllText(Method) = "4" Then
-            If VRadioButton2.Checked = True Then
-                TextBox1.Text = "100k"
-                TextBox2.Text = ""
-                SolidBlockSize.Text = "8m"
-            End If
-        End If
-    End Sub
-
-    Private Sub RadioButton3_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VRadioButton3.CheckedChanged
-        If My.Computer.FileSystem.ReadAllText(Method) = "1" Or My.Computer.FileSystem.ReadAllText(Method) = "2" Then
-            If VRadioButton3.Checked = True Then
-                TextBox1.Text = "1m"
-                TextBox2.Text = "32"
-                SolidBlockSize.Text = "128m"
-            End If
-        End If
-        If My.Computer.FileSystem.ReadAllText(Method) = "3" Then
-            If VRadioButton3.Checked = True Then
-                TextBox1.Text = "4m"
-                TextBox2.Text = "4"
-                SolidBlockSize.Text = "512m"
-            End If
-        End If
-        If My.Computer.FileSystem.ReadAllText(Method) = "4" Then
-            If VRadioButton3.Checked = True Then
-                TextBox1.Text = "500k"
-                TextBox2.Text = ""
-                SolidBlockSize.Text = "32m"
-            End If
-        End If
-    End Sub
-
-    Private Sub RadioButton4_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VRadioButton4.CheckedChanged
-        If My.Computer.FileSystem.ReadAllText(Method) = "1" Or My.Computer.FileSystem.ReadAllText(Method) = "2" Then
-            If VRadioButton4.Checked = True Then
-                TextBox1.Text = "16m"
-                TextBox2.Text = "32"
-                SolidBlockSize.Text = "2g"
-            End If
-        End If
-        If My.Computer.FileSystem.ReadAllText(Method) = "3" Then
-            If VRadioButton4.Checked = True Then
-                TextBox1.Text = "16m"
-                TextBox2.Text = "6"
-                SolidBlockSize.Text = "2g"
-            End If
-        End If
-        If My.Computer.FileSystem.ReadAllText(Method) = "4" Then
-            If VRadioButton4.Checked = True Then
-                TextBox1.Text = "900k"
-                TextBox2.Text = ""
-                SolidBlockSize.Text = "64m"
-            End If
-        End If
-    End Sub
-
-    Private Sub RadioButton5_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VRadioButton5.CheckedChanged
-        If My.Computer.FileSystem.ReadAllText(Method) = "1" Or My.Computer.FileSystem.ReadAllText(Method) = "2" Then
-            If VRadioButton5.Checked = True Then
-                TextBox1.Text = "32m"
-                TextBox2.Text = "64"
-                SolidBlockSize.Text = "4g"
-            End If
-        End If
-        If My.Computer.FileSystem.ReadAllText(Method) = "3" Then
-            If VRadioButton5.Checked = True Then
-                TextBox1.Text = "64m"
-                TextBox2.Text = "16"
-                SolidBlockSize.Text = "4g"
-            End If
-        End If
-        If My.Computer.FileSystem.ReadAllText(Method) = "4" Then
-            If VRadioButton5.Checked = True Then
-                TextBox1.Text = "900k"
-                TextBox2.Text = ""
-                SolidBlockSize.Text = "64m"
-            End If
-        End If
-    End Sub
-
-    Private Sub RadioButton6_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VRadioButton6.CheckedChanged
-        If My.Computer.FileSystem.ReadAllText(Method) = "1" Or My.Computer.FileSystem.ReadAllText(Method) = "2" Then
-            If VRadioButton6.Checked = True Then
-                TextBox1.Text = "64m"
-                TextBox2.Text = "64"
-                SolidBlockSize.Text = "4g"
-            End If
-        End If
-        If My.Computer.FileSystem.ReadAllText(Method) = "3" Then
-            If VRadioButton6.Checked = True Then
-                TextBox1.Text = "192m"
-                TextBox2.Text = "32"
-                SolidBlockSize.Text = "4g"
-            End If
-        End If
-        If My.Computer.FileSystem.ReadAllText(Method) = "4" Then
-            If VRadioButton6.Checked = True Then
-                TextBox1.Text = "900k"
-                TextBox2.Text = ""
-                SolidBlockSize.Text = "64m"
-            End If
-        End If
     End Sub
 
     Private Sub LinkLabel1_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
@@ -168,9 +48,102 @@
         WebBrowser.ShowDialog()
     End Sub
 
-    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs)
-
+    Private Sub CompressionMethod_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CompressionMethod.SelectedIndexChanged
+        AdjustParameters()
+        My.Settings.SevenZipMethod = CompressionMethod.SelectedItem
+        My.Settings.Save()
     End Sub
 
+    Private Sub AdjustParameters()
+        If CompressionLevel.SelectedItem = "Store" Then
+            DictionarySize.Text = ""
+            WordSize.Text = ""
+            SolidBlockSize.Text = ""
+        ElseIf CompressionLevel.SelectedItem = "Fastest" Then
+            If CompressionMethod.SelectedItem = "LZMA" Or CompressionMethod.SelectedItem = "LZMA2" Then
+                DictionarySize.Text = "64k"
+                WordSize.Text = "32"
+                SolidBlockSize.Text = "8m"
+            ElseIf CompressionMethod.SelectedItem = "BZip2" Then
+                DictionarySize.Text = "4m"
+                WordSize.Text = "4"
+                SolidBlockSize.Text = "512m"
+            ElseIf CompressionMethod.SelectedItem = "PPMd" Then
+                DictionarySize.Text = "100k"
+                WordSize.Text = ""
+                SolidBlockSize.Text = "8m"
+            End If
+        ElseIf CompressionLevel.SelectedItem = "Fast" Then
+            If CompressionMethod.SelectedItem = "LZMA" Or CompressionMethod.SelectedItem = "LZMA2" Then
+                DictionarySize.Text = "1m"
+                WordSize.Text = "32"
+                SolidBlockSize.Text = "128m"
+            ElseIf CompressionMethod.SelectedItem = "BZip2" Then
+                DictionarySize.Text = "4m"
+                WordSize.Text = "4"
+                SolidBlockSize.Text = "512m"
+            ElseIf CompressionMethod.SelectedItem = "PPMd" Then
+                DictionarySize.Text = "500k"
+                WordSize.Text = ""
+                SolidBlockSize.Text = "32m"
+            End If
+        ElseIf CompressionLevel.SelectedItem = "Normal" Then
+            If CompressionMethod.SelectedItem = "LZMA" Or CompressionMethod.SelectedItem = "LZMA2" Then
+                DictionarySize.Text = "16m"
+                WordSize.Text = "32"
+                SolidBlockSize.Text = "2g"
+            ElseIf CompressionMethod.SelectedItem = "BZip2" Then
+                DictionarySize.Text = "16m"
+                WordSize.Text = "6"
+                SolidBlockSize.Text = "2g"
+            ElseIf CompressionMethod.SelectedItem = "PPMd" Then
+                DictionarySize.Text = "900k"
+                WordSize.Text = ""
+                SolidBlockSize.Text = "64m"
+            End If
+        ElseIf CompressionLevel.SelectedItem = "Maximum" Then
+            If CompressionMethod.SelectedItem = "LZMA" Or CompressionMethod.SelectedItem = "LZMA2" Then
+                DictionarySize.Text = "32m"
+                WordSize.Text = "64"
+                SolidBlockSize.Text = "4g"
+            ElseIf CompressionMethod.SelectedItem = "BZip2" Then
+                DictionarySize.Text = "64m"
+                WordSize.Text = "16"
+                SolidBlockSize.Text = "4g"
+            ElseIf CompressionMethod.SelectedItem = "PPMd" Then
+                DictionarySize.Text = "900k"
+                WordSize.Text = ""
+                SolidBlockSize.Text = "64m"
+            End If
+        ElseIf CompressionLevel.SelectedItem = "Ultra" Then
+            If CompressionMethod.SelectedItem = "LZMA" Or CompressionMethod.SelectedItem = "LZMA2" Then
+                DictionarySize.Text = "64m"
+                WordSize.Text = "64"
+                SolidBlockSize.Text = "4g"
+            ElseIf CompressionMethod.SelectedItem = "BZip2" Then
+                DictionarySize.Text = "192m"
+                WordSize.Text = "32"
+                SolidBlockSize.Text = "4g"
+            ElseIf CompressionMethod.SelectedItem = "PPMd" Then
+                DictionarySize.Text = "900k"
+                WordSize.Text = ""
+                SolidBlockSize.Text = "64m"
+            End If
+        End If
+    End Sub
 
+    Private Sub DictionarySize_TextChanged(sender As Object, e As EventArgs) Handles DictionarySize.TextChanged
+        My.Settings.SevenZipDictSize = DictionarySize.Text
+        My.Settings.Save()
+    End Sub
+
+    Private Sub WordSize_TextChanged(sender As Object, e As EventArgs) Handles WordSize.TextChanged
+        My.Settings.SevenZipWordSize = WordSize.Text
+        My.Settings.Save()
+    End Sub
+
+    Private Sub SolidBlockSize_TextChanged(sender As Object, e As EventArgs) Handles SolidBlockSize.TextChanged
+        My.Settings.SevenZipBlockSize = SolidBlockSize.Text
+        My.Settings.Save()
+    End Sub
 End Class
